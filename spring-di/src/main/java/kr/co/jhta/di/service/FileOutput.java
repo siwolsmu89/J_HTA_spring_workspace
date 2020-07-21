@@ -7,9 +7,25 @@ import java.io.PrintWriter;
 public class FileOutput implements Output {
 
 	private PrintWriter writer;
+	private String directory;
+	private String filename;
+	
+	public void setDirectory(String directory) {
+		this.directory = directory;
+	}
+	
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
+	public FileOutput() {}
 	
 	public FileOutput(String directory, String filename) {
-		
+		this.directory = directory;
+		this.filename = filename;
+	}
+	
+	private void createWriter() {
 		try {
 			File file = new File(directory, filename);
 			writer = new PrintWriter(file, "utf-8");
@@ -20,6 +36,10 @@ public class FileOutput implements Output {
 	
 	@Override
 	public void write(String text) {
+		if (writer == null) {
+			createWriter();
+		}
+		
 		writer.println(text);
 		writer.flush();
 	}
