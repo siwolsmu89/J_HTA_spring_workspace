@@ -12,4 +12,14 @@
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
   </properties>
+  
+  <dependencies>
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>5.2.7.RELEASE</version>
+	</dependency>
+  </dependencies>
+  
 </project>
