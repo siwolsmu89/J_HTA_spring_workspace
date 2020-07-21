@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>kr.co.jhta.spring</groupId>
+  <artifactId>spring-di</artifactId>
+  <version>0.0.1</version>
+  
+  <properties>
+  	<!-- 메이븐 프로젝트의 자바 버전을 java 8로 설정 -->
+  	<maven.compiler.source>1.8</maven.compiler.source>
+  	<maven.compiler.target>1.8</maven.compiler.target>
+  	<!-- 메이븐을 이용한 프로젝트 빌드 시 한글 처리를 위한 인코딩 설정 -->
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<project.build.outputEncoding>UTF-8</project.build.outputEncoding>
+  </properties>
+</project>
