@@ -1,0 +1,23 @@
+의존성 주입하기
+
+	1. 객체 생성 후 기본 자료형(String 포함) 값을 setter 메소드로 주입하기
+		<bean id="sms" class="SmsMessageSender">
+			<property name="company" value="SKT" />
+		</bean>
+		
+		public SmsMessageSender {
+		
+			private String company; // 회사 이름
+			
+			public void setCompany(String company) {
+				this.company = company;
+			}
+		}
+
+
+	2. 객체 생성하기 ,기본 자료형 값을 생성자 메소드로 주입하기
+		<bean id="sms" class="KakaotalkMessageSender">
+			<construct-arg name="username" value="jhta" />
+			<construct-arg name="password" value="zxcv1234" />
+			<construct-arg name="" value="SKT" />
+		</bean>

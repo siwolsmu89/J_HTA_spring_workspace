@@ -10,6 +10,6 @@ public class Main {
 		ApplicationContext ctx = new GenericXmlApplicationContext(conf);
 		AlarmServiceImpl asi = ctx.getBean(AlarmServiceImpl.class);
 		
-		asi.alarm("기상");
+		asi.alarm("화재가 발생하였습니다.");
 	}
 }

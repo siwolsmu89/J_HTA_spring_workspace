@@ -1,0 +1,37 @@
+@Component, @Service, @Controller, @ControllerAdvice, @Repository, @RestController 등
+	- 위의 어노테이션들을 클래스에 작성하면, 해당 클래스의 객체를 Spring Container에 빈으로 만드는 작업이 자동으로 실행된다.
+	- @Component 이외의 어노테이션들은 @Component 어노테이션의 자식들이다.
+	- @Service, @Controller 등의 명칭 구분은 문법적인 것이 아니라 의미적인 것이므로, 클래스의 기능이 명칭과 일치하지 않아도 빈은 생성된다.
+	- 그러나 객체의 기능과 명칭을 올바르게 일치시켜야 혼란을 방지할 수 있다.
+
+@Component("이름")
+	- Spring Container에 객체를 생성할 때 "이름"을 id로 하는 빈을 만든다.
+
+@Value("${properties 파일의 key 값}")
+	- 설정된 properties파일에서 key 값으로 조회된 value를 값으로 주입한다.
+
+@PostConstruct
+	- 해당 메소드를 객체가 처음 생성되고 나서 한 번 실행될 메소드로 지정한다.
+
+@PreDestroy
+	- 해당 메소드를 객체가 삭제되기 전에 한 번 실행될 메소드로 지정한다.
+
+@Configuration
+	- 해당 자바 클래스가 빈 설정 정보를 담고 있는 클래스임을 표시하는 어노테이션이다.
+	@Bean
+		- @Configuration 어노테이션이 부착된 클래스에서 객체를 반환하는 메소드에 부착한다.
+		- 해당 어노테이션이 부착된 메소드가 반환하는 객체는 스프링 컨테이너가 관리한다.
+			 <bean id="메소드명" class="반환하는 객체의 클래스"></bean> 태그처럼 작동한다.
+		- 객체를 반환하는 메소드의 파라미터로 다른 객체를 전달받고, 메소드 내부에서 조립한 뒤 객체를 반환할 수도 있다.
+			<bean id="메소드명" class="반환하는 객체의 클래스">
+				<property name="파라미터 변수명" ref="해당 클래스의 빈이름"></property>
+			</bean> 처럼 작동한다.
+
+	@ComponentScan(basePackages="패키지명 문자열 또는 패키지명 문자열 배열")
+		- @Configuration 어노테이션이 부착된 클래스에 함께 부착한다.
+		- 지정된 패키지에서 스프링 컨테이너가 생성/조립할 클래스를 스캔한다.
+		- <context:component-scan></context> 처럼 작동한다.
+	
+	@PropertySource("프로퍼티 파일 경로")
+		- @Configuration 어노테이션이 부착된 클래스에 함께 부착한다.
+		- 읽어올 properties 파일의 경로를 지정할 때 사용한다.
