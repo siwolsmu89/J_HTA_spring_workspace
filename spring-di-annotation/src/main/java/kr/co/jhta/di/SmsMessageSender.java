@@ -1,10 +1,12 @@
 package kr.co.jhta.di;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SmsMessageSender implements MessageSender {
 
+	@Value("${message.sender.sms.company}")
 	private String company;
 	
 	public void setCompany(String company) {

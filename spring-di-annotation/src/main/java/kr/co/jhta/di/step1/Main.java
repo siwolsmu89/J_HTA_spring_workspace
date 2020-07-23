@@ -12,6 +12,9 @@ public class Main {
 		ApplicationContext ctx = new GenericXmlApplicationContext(conf);
 		
 		SmsMessageSender sms = ctx.getBean(SmsMessageSender.class);
-		System.out.println(sms);
+		sms.send("홍보부", "010-1234-1234", "창고대방출", "7월31일까지 전품목 5%할인");
+		
+		EventNotificationServiceImpl ens = ctx.getBean(EventNotificationServiceImpl.class);
+		ens.notice("홍보부", "폐업안내", "전품목 대방출로 폐업합니다.");
 	}
 }
