@@ -8,9 +8,9 @@ import kr.co.jhta.di.SmsMessageSender;
 @Service
 public class EventNotificationServiceImpl implements NotificationService {
 
-	@Autowired
 	private SmsMessageSender sms;
 	
+	@Autowired
 	public void setSms(SmsMessageSender sms) {
 		this.sms = sms;
 	}
