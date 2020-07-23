@@ -3,7 +3,7 @@ package kr.co.jhta.di;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("kakao")
 public class KakaotalkMessageSender implements MessageSender {
 
 	@Value("${message.sender.kakao.username}")
