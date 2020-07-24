@@ -17,6 +17,14 @@
 	</bean>
 	
 	<!-- 
+		Connection Pool 객체가 제공하는 Connection 객체를 이용해서
+		DB Access 작업을 처리하는 BookDao 객체 생성
+	 -->
+	 <bean id="bookDao" class="kr.co.jhta.dao.BookDao">
+	 	<property name="ds" ref="dataSource" />
+	 </bean>
+	
+	<!-- 
 		spring의 환경설정 파일 로드하기
 			* Database 연결 정보
 			* 국제화와 관련된 메시지
