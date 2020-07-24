@@ -1,9 +1,12 @@
 package kr.co.jhta.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import kr.co.jhta.vo.User;
 
@@ -52,21 +55,33 @@ public class UserDaoSpringJdbcImpl implements UserDao {
 	
 	@Override
 	public User getUserById(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT user_id, user_name, user_password, user_email FROM spring_users WHERE user_id = ?";
+		return jdbcTemplate.queryForObject(sql, new UserRowMapper(), userId);
 	}
 	
 	@Override
 	public List<User> getAllUsers() {
-		List<User> users = new ArrayList<User>();
-		// TODO Auto-generated method stub
-		return users;
+		String sql = "SELECT * FROM spring_users ORDER BY user_id ASC ";
+		return jdbcTemplate.query(sql, new UserRowMapper());
 	}
 	
 	@Override
 	public List<User> getUsersByName(String username) {
-		List<User> users = new ArrayList<User>();
-		// TODO Auto-generated method stub
-		return users;
+		String sql = "SELECT * FROM spring_users WHERE user_name = ? ORDER BY user_id ASC ";
+		return jdbcTemplate.query(sql, new UserRowMapper(), username);
+	}
+	
+	class UserRowMapper implements RowMapper<User> {
+		@Override
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+			User user = new User();
+			
+			user.setId(rs.getString("user_id"));
+			user.setName(rs.getString("user_name"));
+			user.setPassword(rs.getString("user_password"));
+			user.setEmail(rs.getString("user_email"));
+			
+			return user;
+		}
 	}
 }
