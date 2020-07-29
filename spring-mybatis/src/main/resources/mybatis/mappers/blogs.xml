@@ -1,30 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="kr.co.jhta.dao.BlogDao">
-
+	<select id="getBlogByNo" parameterType="int" resultType="Blog">
+		SELECT
+			a.blog_no					AS no,
+			a.blog_title				AS title,
+			a.blog_writer				AS writer.id,
+			b.user_name					AS writer.name,
+			b.user_email				AS writer.email,
+			a.blog_content				AS content,
+			a.blog_likes				AS likes,
+			a.blog_comment_counts		AS commentCounts,
+			a.blog_created_date			AS createDate
+		FROM
+			spring_blogs a, spring_users b
+		WHERE
+			a.blog_writer = b.user_id
+			and a.blog_no = #{value}
+	</select>
+	
+	<select id="getBlogs" resultType="Blog">
+		SELECT
+			a.blog_no					AS no,
+			a.blog_title				AS title,
+			a.blog_writer				AS writer.id,
+			b.user_name					AS writer.name,
+			b.user_email				AS writer.email,
+			a.blog_content				AS content,
+			a.blog_likes				AS likes,
+			a.blog_comment_counts		AS commentCounts,
+			a.blog_created_date			AS createDate
+		FROM
+			spring_blogs a, spring_users b
+		WHERE
+			a.blog_writer = b.user_id
+	</select>
+	<select id="getBlogsByWriter" parameterType="string" resultType="Blog">
+		SELECT
+			a.blog_no					AS no,
+			a.blog_title				AS title,
+			a.blog_writer				AS writer.id,
+			b.user_name					AS writer.name,
+			b.user_email				AS writer.email,
+			a.blog_content				AS content,
+			a.blog_likes				AS likes,
+			a.blog_comment_counts		AS commentCounts,
+			a.blog_created_date			AS createDate
+		FROM
+			spring_blogs a, spring_users b
+		WHERE
+			a.blog_writer = b.user_id
+			a.blog_writer = #{value}
+	</select>
+	
 	<insert id="insertBlog" parameterType="Blog">
-		insert into spring_blogs
+		INSERT INTO spring_blogs
 		(blog_no, blog_title, blog_writer, blog_content)
-		values
+		VALUES
 		(spring_blog_seq.nextval, #{title}, #{writer.id}, #{content})
 	</insert>
 	
-	<select id="getBlogByNo" parameterType="int" resultType="Blog">
-		select
-			a.blog_no					as no,
-			a.blog_title				as title,
-			a.blog_writer				as writer.id,
-			b.user_name					as writer.name,
-			b.user_email				as writer.email,
-			a.blog_content				as content,
-			a.blog_likes				as likes,
-			a.blog_comment_counts		as commentCounts,
-			a.blog_create_date			as createDate
-		from
-			spring_blogs a, spring_users b
-		where
-			a.blog_writer = b.user_id
-			and a.blog_no = #{value}
-		
-	</select>
+	<update id="updateBlog" parameterType="Blog">
+		UPDATE spring_blogs
+		SET
+			blog_title = #{title},
+			blog_content = #{content},
+			blog_likes = #{likes},
+			blog_comment_counts = #{commentCounts}
+		WHERE
+			blog_no = #{no}
+	</update>
+	
+	<delete id="deleteBlogByNo" parameterType="int">
+		DELETE FROM spring_blogs
+		WHERE blog_no = #{value}	
+	</delete>
+	<delete id="deleteBlogByWriter" parameterType="string">
+		DELETE FROM spring_blogs
+		WHERE blog_writer = #{value}	
+	</delete>
 </mapper>

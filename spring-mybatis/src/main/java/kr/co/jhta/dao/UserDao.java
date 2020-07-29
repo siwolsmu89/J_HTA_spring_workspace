@@ -17,13 +17,12 @@ public interface UserDao {
 	 * 지정된 사용자 정보를 저장한다.
 	 * @param user 사용자 정보가 포함된 User객체
 	 */
-	void insertUser(User user);
-	
 	List<User> getUsersByName(String name);
 	
+	void insertUser(User user);
+	void updateUser(User user);
 	void deleteUserById(String userId);
 	
-	void updateUser(User user);
 	
 	
 }

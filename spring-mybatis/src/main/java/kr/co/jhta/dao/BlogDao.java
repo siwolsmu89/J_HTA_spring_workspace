@@ -12,6 +12,6 @@ public interface BlogDao {
 	
 	void insertBlog(Blog blog);
 	void updateBlog(Blog blog);
-	void deleteBlog(int blogNo);
+	void deleteBlogByNo(int blogNo);
 	void deleteBlogsByWriter(String writer);
 }

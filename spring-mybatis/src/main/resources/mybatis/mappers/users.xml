@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
 <!-- 
 	MapperScannerConfigurer, <mybatis-spring:scan/> 을 이용한 매퍼 인터페이스 구현객체 등록하기.
 	1. 매퍼 인터페이스를 정의한다.
@@ -36,7 +35,6 @@
 		UserDao 인터페이스의
 			User getUserById(String userId)에 대응되는 SQL 구문
 	 -->
-
 	<select id="getUserById" parameterType="string" resultType="User">
 		select
 			user_id				as id,
@@ -48,6 +46,21 @@
 			spring_users
 		where
 			user_id = #{value}	
+	</select>
+
+	<select id="getUsersByName" parameterType="string" resultType="User">
+		select
+			user_id				as id,
+			user_name			as name,
+			user_password		as password,
+			user_email			as email,
+			user_created_date	as createdDate
+		from
+			spring_users
+		where
+			user_name = #{value}
+		ORDER BY
+			user_name ASC	
 	</select>
 	
 	<!-- 
@@ -61,5 +74,17 @@
 		(#{id}, #{name}, #{password}, #{email})
 	</insert>
 	
-	<select id="getUsersByName" parameterType="string" resultType=""></select>
+	<update id="updateUser" parameterType="User">
+		UPDATE spring_users
+		SET
+			user_password = #{password},
+			user_email = #{email}
+		WHERE 
+			user_id = #{id}
+	</update>
+	
+	<delete id="deleteUserById" parameterType="string">
+		DELETE FROM spring_users
+		WHERE user_id = #{value}
+	</delete>
 </mapper>

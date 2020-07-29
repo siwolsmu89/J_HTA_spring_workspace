@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="kr.co.jhta.dao.BlogCommentDao">
 
+<mapper namespace="kr.co.jhta.dao.BlogCommentDao">
+	<select id="getCommentsByBlogNo" parameterType="int" resultType="Comment">
+		SELECT A.comment_no					AS no,
+			   A.comment_writer				AS "writer.id",
+			   B.user_name					AS "writer.name",
+			   A.comment_content			AS content,
+			   A.blog_no					AS "blog.no",
+			   A.comment_created_date		AS createdDate
+		FROM 
+			   spring_blog_comments A, spring_users B
+		WHERE
+			   A.comment_writer = B.user_id
+		   AND A.blog_no = #{value}
+		ORDER BY A.comment_no ASC
+	</select>
+	<select id="getCommentsByWriter" parameterType="string" resultType="Comment">
+		SELECT A.comment_no					AS no,
+			   A.comment_writer				AS "writer.id",
+			   B.user_name					AS "writer.name",
+			   A.comment_content			AS content,
+			   A.blog_no					AS "blog.no",
+			   A.comment_created_date		AS createdDate
+		FROM 
+			   spring_blog_comments A, spring_users B
+		WHERE
+			   A.comment_writer = B.user_id
+		   AND A.comment_writer = #{value}
+		ORDER BY A.comment_no DESC
+	</select>
+	
+	<insert id="insertComment" parameterType="Comment">
+		INSERT INTO spring_blog_comments
+		(comment_no, comment_writer, comment_content, blog_no)
+		VALUES
+		(spring_comment_seq.NEXTVAL, #{writer.id}, #{content}, #{blog.no})
+	</insert>
+	
+	<delete id="deleteCommentByNo" parameterType="int">
+		DELETE FROM spring_blog_comments
+		WHERE comment_no = #{value}
+	</delete>
+	<delete id="deleteCommentsByBlogNo" parameterType="int">
+		DELETE FROM spring_blog_comments
+		WHERE blog_no = #{value}
+	</delete>
+	<delete id="deleteCommentsByWriter" parameterType="string">
+		DELETE FROM spring_blog_comments
+		WHERE comment_writer = #{value}
+	</delete>
 </mapper>
