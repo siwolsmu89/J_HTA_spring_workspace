@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.jhta.dao.BlogCommentDao;
 import kr.co.jhta.dao.BlogDao;
 import kr.co.jhta.dao.UserDao;
-import kr.co.jhta.exception.DuplicateUserException;
-import kr.co.jhta.exception.UnauthenticateUserException;
+import kr.co.jhta.exception.DuplicatedUserException;
+import kr.co.jhta.exception.UnauthenticatedUserException;
 import kr.co.jhta.vo.Blog;
 import kr.co.jhta.vo.Comment;
 import kr.co.jhta.vo.User;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	public void addNewUser(User user) {
 		User savedUser = userDao.getUserById(user.getId());
 		if (savedUser != null) {
-			throw new DuplicateUserException("["+user.getId()+"]는 사용할 수 없는 아이디 입니다.");
+			throw new DuplicatedUserException("["+user.getId()+"]는 사용할 수 없는 아이디 입니다.");
 		}
 		
 		userDao.insertUser(user);
@@ -46,10 +46,10 @@ public class UserServiceImpl implements UserService {
 		
 		User user = userDao.getUserById(id);
 		if (user == null) {
-			throw new UnauthenticateUserException("ID or PASSWORD가 올바르지 않습니다.");
+			throw new UnauthenticatedUserException("ID or PASSWORD가 올바르지 않습니다.");
 		}
 		if (!user.getPassword().equals(password)) {
-			throw new UnauthenticateUserException("ID or PASSWORD가 올바르지 않습니다.");
+			throw new UnauthenticatedUserException("ID or PASSWORD가 올바르지 않습니다.");
 		}
 		return user;
 	}

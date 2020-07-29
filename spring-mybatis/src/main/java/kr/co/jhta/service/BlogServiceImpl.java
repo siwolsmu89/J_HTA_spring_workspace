@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.cache.decorators.BlockingCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.dao.BlogCommentDao;
 import kr.co.jhta.dao.BlogDao;
@@ -13,6 +14,7 @@ import kr.co.jhta.vo.Blog;
 import kr.co.jhta.vo.Comment;
 
 @Service
+@Transactional
 public class BlogServiceImpl implements BlogService {
 	
 	@Autowired
