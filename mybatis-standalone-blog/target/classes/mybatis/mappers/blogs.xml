@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="blog">
+	
+	<insert id="insertBlog" parameterType="kr.co.jhta.Blog">
+		INSERT INTO spring_blogs
+				(blog_no, blog_title, blog_writer, blog_content, blog_likes, blog_comment_counts, blog_create_date)
+			VALUES
+				(spring_blog_seq.nextval, #{title}, #{writer}, #{content}, #{likes}, #{commentCounts}, SYSDATE)
+	</insert>
+	
+	<select id="getAllBlogs" resultType="kr.co.jhta.dto.BlogDto">
+		select
+				blog_no				as blogNo,
+				blog_title			as blogTitle,
+				blog_writer			as blogWriter,
+				blog_likes			as blogLikes,
+				blog_create_date	as blogCreateDate
+			from
+				spring_blogs
+			order by
+				blog_no asc	
+	</select>
+	
+	<select id="getBlogByNo" parameterType="int" resultType="kr.co.jhta.dto.BlogDto">
+		select
+				blog_no				as blogNo,
+				blog_title			as blogTitle,
+				blog_writer			as blogWriter,
+				blot_content		as blogContent,
+				blog_likes			as blogLikes,
+				blog_comment_counts	as blogCommentCounts
+				blog_create_date	as blogCreateDate
+			from
+				spring_blogs
+			where
+				blog_no = #{value}	
+			order by
+				blog_no asc	
+	</select>
+	
+	<update id="updateBlog" parameterType="kr.co.jhta.vo.Blog">
+		update spring_blogs
+			set
+				blog_title = #{title},
+				blog_content = #{content}
+			where
+				blog_no = #{no}
+	</update>
+</mapper>
