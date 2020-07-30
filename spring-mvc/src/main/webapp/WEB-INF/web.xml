@@ -36,7 +36,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/context-mvc.xml</param-value>
 		</init-param>
-		<load-on-stratup>1</load-on-stratup>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>frontController</servlet-name>
