@@ -12,7 +12,6 @@
 		UPDATE spring_free_boards
 		SET
 			board_title = #{title},
-			board_password = #{password},
 			board_content = #{content},
 			board_filename = #{filename},
 			board_likes = #{likes},
@@ -28,12 +27,8 @@
 			board_no 			AS no, 
 			board_title 		AS title, 
 			board_writer 		AS writer, 
-			board_password 		AS password, 
-			board_content 		AS content, 
-			board_filename 		AS filename, 
 			board_likes 		AS likes, 
-			board_created_date 	AS createdDate, 
-			board_updated_date	AS updatedDate, 
+			board_created_date 	AS createdDate 
 		FROM 
 			spring_free_boards
 		WHERE

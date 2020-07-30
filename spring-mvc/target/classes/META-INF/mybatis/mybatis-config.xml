@@ -10,6 +10,6 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="META-INF/mybatis/freeboards.xml" />
+		<mapper resource="META-INF/mybatis/mappers/freeboards.xml" />
 	</mappers>
 </configuration>

@@ -19,24 +19,22 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void addNewBoard(Board board) {
-		Board savedBoard = boardDao.selectBoard(board.getNo());
-		if (savedBoard != null) {
-			return;
-		}
-		
 		boardDao.insertBoard(board);
 	}
 	
 	@Override
 	public void deleteBoard(long boardNo, String password) {
-		Board board = boardDao.selectBoard(boardNo);
-		if (!password.equals(board.getPassword())) {
-			return;
+		Board savedBoard = boardDao.selectBoard(boardNo);
+		if (savedBoard == null) {
+			throw new RuntimeException("[" + boardNo + "]번 게시글이 없습니다.");
+		}
+		if (!password.equals(savedBoard.getPassword())) {
+			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
 		}
 		
-		board.setDeleted("Y");
-		board.setDeletedDate(new Date());
-		boardDao.updateBoard(board);
+		savedBoard.setDeleted("Y");
+		savedBoard.setDeletedDate(new Date());
+		boardDao.updateBoard(savedBoard);
 	}
 	
 	@Override
@@ -51,24 +49,31 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void increaseBoardLikes(long boardNo) {
-		Board board = boardDao.selectBoard(boardNo);
-		if (board == null) {
-			return;
+		Board savedBoard = boardDao.selectBoard(boardNo);
+		if (savedBoard == null) {
+			throw new RuntimeException("[" + boardNo + "]번 게시글이 없습니다.");
 		}
 		
-		board.setLikes(board.getLikes() + 1);
-		boardDao.updateBoard(board);
+		savedBoard.setLikes(savedBoard.getLikes() + 1);
+		savedBoard.setUpdatedDate(new Date());
+		boardDao.updateBoard(savedBoard);
 	}
 	
 	@Override
 	public void modifyBoardDetail(Board board) {
-		long boardNo = board.getNo();
-		Board savedBoard = boardDao.selectBoard(boardNo);
-		
+		Board savedBoard = boardDao.selectBoard(board.getNo());
 		if (savedBoard == null) {
-			return;
+			throw new RuntimeException("[" + board.getNo() + "]번 게시글이 없습니다.");
+		}
+		if (!savedBoard.getPassword().equals(board.getPassword())) {
+			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
 		}
 		
-		boardDao.updateBoard(board);
+		savedBoard.setTitle(board.getTitle());
+		savedBoard.setContent(board.getContent());
+		savedBoard.setFilename(board.getFilename());
+		savedBoard.setUpdatedDate(new Date());
+		
+		boardDao.updateBoard(savedBoard);
 	}
 }
