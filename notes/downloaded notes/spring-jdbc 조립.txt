@@ -1,0 +1,51 @@
+1. spring/config/database.properties 환경설정 파일 정의하기
+	db.driverClassName=oracle.jdbc.OracleDriver
+	db.url=jdbc:oralce:thin:@localhost:1521:xe
+	db.username=hr
+	db.password=zxcv1234
+
+2. spring/context.xml 빈 설정 파일 정의하기
+	* context namespace 추가하기
+	
+	* <context:place-holdler location="환경설정파일 경로">
+
+	* Connection Pool객체를 스프링 컨테이너가 관리하는 빈으로 등록하기
+		빈의 아이디: "dataSource"
+		빈의 클래스명 : DriverManagerDataSource
+		빈에 db연결 정보 전달하기: driverClassName, url, username, password
+
+	* JdbcTemplate객체를 스프링 컨테이너가 관리하는 빈으로 등록하기
+		빈의 아이디: "jdbcTemplate"
+		빈의 클래스명:  JdbcTemplate
+		빈에 Connection Pool 객체 전달하기: 필드명-dataSource
+	
+3. kr.co.jhta.vo 패키지에 User 클래스 정의하기
+	* id, name, password, email 필드 및 getter/setter  정의하기
+
+4. kr.co.jhta.dao 패키지에 UserDao 인터페이스 정의하기
+	* 사용자 정보 추가/삭제/변경/조회 기능 제공
+	* void insertUser(User user);
+	* void deleteAllUsers();
+	* void deleteUserById(String userId);
+	* void updateUser(User user);
+	* User getUserById(String userId);
+	* List<User> getAllUsers();
+	* List<User> getUsersByName(String username);
+5. kr.co.jhta.dao 패키지에 UserDao 인터페이스를 구현한 UserDaoSpringJdbcImpl 정의하기
+	* DB Access에 필요한 JdbcTemplate 객체를 주입받기 위한 설정 추가
+	* UserDao 인터페이스에 정의된 메소드를 구현하기(실질적인 구현은 잠시 후에 ...)
+
+6. spring/context.xml 빈 설정 파일 정의하기
+	* 사용자 정보 추가/삭제/변경/조회 기능이 제공되는 UserDaoSpringJdbcImpl를
+	  스프링 컨테이너가 관리하는 빈으로 등록하기
+		빈의 아이디: "userDaoImpl"
+		빈의 클래스명:  UserDaoImpl
+		빈의 jdbcTemplate에 객체 전달하기: 필드명 - jdbcTemplate
+
+7. kr.co.jhta에 Main 클래스 정의하기
+	* GenericXmalApplicationContext 객체생성하가기
+	* ApplicationContext에서 UserDao 인터페이스 구현객체 꺼내기
+	
+
+
+

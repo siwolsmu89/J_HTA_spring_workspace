@@ -1,0 +1,75 @@
+create table spring_blogs (
+	blog_no number(6) primary key,								-- 게시글 번호
+	blog_title varchar2(200) not null,							-- 제목
+	blog_writer varchar2(20) references spring_users (user_id),	-- 작성자 아이디
+	blog_content varchar2(1000) not null,						-- 내용
+	blog_likes number(6) default 0,								-- 조회수
+	blog_comment_counts number(6) default 0,					-- 댓글 갯수
+	blog_create_date date default sysdate 						-- 생성일
+);
+
+create table spring_blog_comments (
+	comment_no number(6) primary key,								-- 댓글 번호
+	comment_writer varchar2(20) references spring_users (user_id),	-- 댓글 작성자 아이디
+	comment_content varchar2(500) not null,							-- 댓글 내용
+	blog_no number(6) references spring_blogs (blog_no),			-- 이 댓글의 게시글 번호
+	comment_create_date date default sysdate						-- 생성일
+);
+
+create sequence spring_blog_seq;									-- 게시글 시퀀스
+create sequence spring_comment_seq;									-- 댓글 시퀀스
+
+
+-- 1. mybatis-standalone-blog 프로젝트 생성하기
+-- 2. pom.xml에 필요한 의존성 정의하기
+-- 3. 필요한 패키지 정의하기
+-- 		vo, dao, dto, util 패키지 생성하기
+-- 4. VO객체 정의하기
+--		User.java, Blog.java, Comment.java
+-- 5. 요구사항을 확인하고, 필요한 경우 DTO객체 정의하기
+-- 6. mybatis mapper 파일 생성하기
+--		users.xml, blogs.xml, comments.xml 
+-- 7. mybatis configuration 파일 생성하기 
+-- 8. 요구사항
+--		사용자 관리 서비스 : UserService 및 UserDao
+--			1: 아이디에 해당하는 사용자정보를 조회하는 기능
+--		게시글 관리 서비스
+--			1: 모든 게시글 조회기능
+--				요구사항 : 글번호, 제목, 작성자명, 조회수, 댓글수, 생성일 조회
+--			2: 새 게시글 등록 기능
+--			3: 게시글 상세 조회기능 
+--				요구사항 : 글번호, 제목, 작성자명, 내용, 조회수, 댓글수, 생성일 조회
+--              요구사항 : 댓글번호, 작성자명, 내용, 생성일 조회
+--			4: 댓글 등록 기능
+--				요구사항 : 새 댓글을 등록한다.
+--				요구사항 : 댓글이 작성된 게시글의 댓글 갯수를 1 증가 시킨다.
+
+vo  클래스
+public class User { ... }
+public class Blog { ... }
+public class Comment { ... }
+
+dao 클래스
+public class UserDao { 
+	public User getUserById(String userId) { ... }
+}
+
+public class BlogDao {
+	public void insertBlog(Blog blog) { ... }
+	public List<BlogDto> getAllBlogs() { ... }		// spring_blogs와 spring_users 조인
+	public BlogDto getBlogByNo(int blogNo) { ... }		// spring_blogs와 spring_users 조인
+	public void updateBlog(Blog blog) { ... }
+}
+public class CommentDao {
+	public void insertComment(Comment comment) { ... }		
+	public List<Comment> getCommentsByBlogNo(int blogNo) { ... }	// spring_blog_comments와 spring_users 조인
+}
+
+main 클래스
+public class Main {
+	// 신규 게시글 등록해보기
+	// 모든 게시글 조회해보기
+	// 특정 번호의 게시글 조회해 보기(게시글 정보와 댓글정보가 전부 출력)
+	// 특정 게시글에 신규 댓글 등록해보기, 게시글의 댓글갯수 증가시키기
+}
+

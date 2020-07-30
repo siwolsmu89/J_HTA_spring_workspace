@@ -1,0 +1,77 @@
+spring mybatis 프로젝트
+	1. Maven 프로젝트 생성
+	2. 의존성 설정
+		spring-context, spring-jdbc, spring-tx,
+		mybatis, mybatis-spring
+		ojdbc
+	3. 폴더 생성, spring Bean Configuration 파일, properties 파일, 
+	   mybatis 환경설정 파일 및 매퍼파일 생성
+		src/main/resources/spring
+			Spring Bean Configuration 파일이 사용하는 폴더
+			* context-datasource.xml
+			* context-tx.xml
+			* context-mybatis.xml
+			* context-service.xml
+		src/main/resources/spring/config
+			Spring Environment Configuration 파일이 사용하는 폴더
+			* database.properties
+		src/main/resources/mybatis
+			mybatis Configuration 파일이 사용하는 폴더
+			* mybatis-config.xml
+			  (mybatis 환경설정 정보, typeAlias, mapper 파일 추가)
+		src/main/resources/mybatis/mappers
+			매핑된 SQL 파일이 사용하는 폴더
+			* users.xml, blogs.xml, blogComments.xml
+	4. 패키지 생성 및 필요한 인터페이스, 클래스 정의
+		kr.co.jhta.dao, kr.co.jhta.dto, kr.co.jhta.service,
+                kr.co.jhta.vo, kr.co.jhta.controller 등을 정의
+	5. 매퍼 인터페이스와 매퍼 파일을 연결시키기
+		<mappers namespace="매퍼 인터페이스의 전체 경로">
+	6. spring bean configuration 파일에 DataSource 설정
+		* database.properties 파일 읽기
+		* DataSource 구현체 빈 등록
+	7. spring과 mybatis 연동하기
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="configLocation" value="classpath:/mybatis/mybatis-config.xml" />
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+		* mybatis의 핵심객체, SqlSessionFactory를 스프링 빈으로 등록시키는
+                  SqlSessionFactoryBean을 등록한다.
+	8. SQL 정의하기
+		1. UserDao
+			 void insertUser(User user) 정의
+		2. users.xml
+			<insert id="insertUser" parameterType="User">
+				SQL 구문
+			</insert>
+	9. MapperScannerConfigurer를 스프링 컨테이너에 등록하기
+		<mybatis-spring:scan base-package="매퍼 인터페이스의 전체 경로"/>
+		* 지정된 패키지에서 인터페이스를 검색해서 
+		  연관된 매퍼파일의 SQL을 실행하는 구현객체를 생성하고, 
+		  스프링 컨테이너의 빈으로 등록한다.
+		* UserDao, BlogDao, BlogCommentDao의 구현객체가 필요한 xxxServiceImpl은
+		  Database Access작업이 필요한 경우, 의존성 주입을 받을 수 있다.
+		  public class UserServiceImpl implements UserService {
+			@Autowired
+			private UserDao userDao; <--- UserDao 인터페이스의 구현객체가 조립됨
+		  } 
+	10. xxxServiceImpl를 스프링 컨테이너에 등록하기
+		<context:annotation-config />
+		<context:component-scan base-package="kr.co.jhta.service" />
+	11. 스프링 컨테이너를 생성하고, 필요한 xxxServiceImpl객체를 꺼내서 사용하기
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
