@@ -34,7 +34,7 @@
 		WHERE
 			board_deleted = 'N'
 		ORDER BY
-			bord_no DESC
+			board_no DESC
 	</select>
 	
 	<select id="selectBoard" parameterType="long" resultType="Board">
@@ -47,7 +47,7 @@
 			board_filename 		AS filename, 
 			board_likes 		AS likes, 
 			board_created_date 	AS createdDate, 
-			board_updated_date	AS updatedDate, 
+			board_updated_date	AS updatedDate 
 		FROM
 			spring_free_boards
 		WHERE
