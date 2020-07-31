@@ -12,7 +12,7 @@
 	<div class="container mt-3 mb-5">
 		<div class="row">
 			<div class="col-12">
-				<form id="form-new-board" method="POST" action="add.do">
+				<form id="form-new-board" method="POST" action="add.do" enctype="multipart/form-data">
 					<div class="card">
 						<div class="card-header">새 글 입력폼</div>
 						<div class="card-body">

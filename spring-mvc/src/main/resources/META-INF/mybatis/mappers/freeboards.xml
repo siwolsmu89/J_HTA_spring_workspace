@@ -46,6 +46,7 @@
 			board_content 		AS content, 
 			board_filename 		AS filename, 
 			board_likes 		AS likes, 
+			board_deleted		AS deleted,
 			board_created_date 	AS createdDate, 
 			board_updated_date	AS updatedDate 
 		FROM

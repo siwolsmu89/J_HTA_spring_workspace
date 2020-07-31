@@ -1,13 +1,21 @@
 package kr.co.jhta.web;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.jhta.form.BoardForm;
@@ -20,6 +28,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Value("${directory.save.freeboard}")
+	private String saveDirectory;
 	
 	@RequestMapping("/list.do")
 	public String boardList(Model model) {
@@ -35,15 +46,26 @@ public class BoardController {
 	
 	@RequestMapping("/form.do")
 	public String form() {
-		
 		return "board/form";
 	}
 	
 	@RequestMapping("/add.do")
-	public String addBoard(BoardForm boardForm) {
+	public String addBoard(BoardForm boardForm) throws Exception {
 		Board board = new Board();
 		// BoardForm의 값들을 Board로 복사
 		BeanUtils.copyProperties(boardForm, board);
+		
+		// 첨부파일 핸들링
+		MultipartFile upfile = boardForm.getUpfile();
+		if (!upfile.isEmpty()) {
+			String filename = upfile.getOriginalFilename();
+			File file = new File(saveDirectory, filename);
+
+			FileCopyUtils.copy(upfile.getInputStream(), new FileOutputStream(file));
+			
+			board.setFilename(filename);
+		}
+		
 		boardService.addNewBoard(board);
 		
 		return "redirect:list.do";
@@ -59,7 +81,8 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/detail.do")
-	public String boardDetail(@RequestParam("no") long boardNo) {
+	public String boardDetail(@RequestParam("no") long boardNo, Model model) {
+		model.addAttribute("board", boardService.getBoardDetail(boardNo));
 		
 		return "board/detail";
 	}

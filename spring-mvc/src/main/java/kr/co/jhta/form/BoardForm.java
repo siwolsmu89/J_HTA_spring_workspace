@@ -1,10 +1,13 @@
 package kr.co.jhta.form;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardForm {
 
 	private String title;
 	private String writer;
 	private String content;
+	private MultipartFile upfile;
 	private String password;
 	
 	public BoardForm() {}
@@ -31,6 +34,14 @@ public class BoardForm {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public MultipartFile getUpfile() {
+		return upfile;
+	}
+
+	public void setUpfile(MultipartFile upfile) {
+		this.upfile = upfile;
 	}
 
 	public String getPassword() {

@@ -7,12 +7,38 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+	<!-- 
+		@Autowired, @Resource, @Value, @PostConstructor, @PreDestroy 등의 어노테이션을 감지해서, 
+		Spring Container가 관리하는 Bean 객체들 간 의존성 주입 등의 작업을 수행하는 xxxAnnotationProcessor가 Spring Bean으로 등록된다.
+	 -->
 	<context:annotation-config />
+	<!--
+		@Controller 어노테이션이 부착된 컨트롤러 클래스들을 kr.co.jhta.web 패키지에서 검색해 Spring Bean으로 등록한다. 
+	-->
 	<context:component-scan base-package="kr.co.jhta.web" />
 	
+	<!-- 
+		@Controller, @RestController, @ControllerAdvice, @RequestMapping, @RequestParam, @ModelAttribute, @PathVariable, @Valid 등,
+		spring MVC 관련 어노테이션을 감지해서 적절한 작업을 수행하는 클래스들이 Spring Bean으로 등록된다.
+	 -->
 	<mvc:annotation-driven/>
+	<!-- 
+		* <mvc:view-resolvers /> 태그에는 다양한 ViewResolver 관련 설정을 포함할 수 있다.
+		* <mvc:jsp prefix="" suffix="" /> 태그는 뷰 템플릿(모델의 데이터가 표현되는 곳)이 jsp일 때 사용한다. 
+		* <mvc:jsp />는 InternalResourceViewResolver를 Spring Bean으로 등록하고, jsp 페이지를 검색할 때 prefix와 suffix에 설정된 값을 사용한다.
+	 -->
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/views/" suffix=".jsp" />	
 	</mvc:view-resolvers>
+
+	<!--
+		  * multipart 요청(form에 첨부 파일 업로드가 존재하는 요청)을 처리하는 CommonsMultipartResolver를 spring Bean으로 등록한다.  
+				* 해당 클래스는 spring Bean 등록 시 반드시 multipartResolver 라는 id로 등록해야 한다. 
+		  * CommonsMultipartResolver는 Apache commons-fileupload.jar, commons-io.jar를 사용해서 multipart 요청을 처리한다.
+	-->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+	
+	<context:property-placeholder location="/WEB-INF/spring/mvc.properties"/>
 
 </beans>

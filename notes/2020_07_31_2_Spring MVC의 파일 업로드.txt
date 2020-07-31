@@ -1,0 +1,15 @@
+Spring MVC의 파일 업로드
+	* pom.xml에 라이브러리 의존성 추가
+		commons-fileupload
+	* Spring Bean Configuration 파일에 MultipartResolver Bean 등록하기
+		<bean id="multipartResolver" class="....CommonsMultipartResolver">
+		</bean>
+		* <bean> 태그 내부에 <property> 태그로 maxUploadSize, maxUploadSizePerFile, uploadTempDir 등 다양한 설정 속성을 추가할 수 있다.
+	* xxxForm 객체에 MultipartFile 필드 추가하기
+		파일 입력폼이 <input type="file" name="upfile">일 경우,
+		public class xxxForm {
+			private MultipartFile upfile;
+
+			// getter, setter 추가
+		}
+		* input 폼의 name과 xxxForm 객체의 MultipartFile 타입 변수명이 일치해야 한다.
