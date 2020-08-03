@@ -59,6 +59,8 @@ public class BoardController {
 		MultipartFile upfile = boardForm.getUpfile();
 		if (!upfile.isEmpty()) {
 			String filename = upfile.getOriginalFilename();
+			// 파일명의 중복을 피하기 위한 장치 (업로드 시간을 파일명 앞에 붙인다)
+			filename = System.currentTimeMillis() + filename;
 			File file = new File(saveDirectory, filename);
 
 			FileCopyUtils.copy(upfile.getInputStream(), new FileOutputStream(file));
