@@ -55,7 +55,7 @@
 						</table>
 					</div>
 					<div class="card-footer text-right">
-						<a href="form.do" class="btn btn-primary">새 글</a>
+						<a href="add.do" class="btn btn-primary">새 글</a>
 					</div>
 				</div>
 			</div>	

@@ -16,7 +16,7 @@
 			board_filename = #{filename},
 			board_likes = #{likes},
 			board_deleted = #{deleted},
-			board_updated_date = #{updatedDate},
+			board_updated_date = SYSDATE,
 			board_deleted_date = #{deletedDate}
 		WHERE
 			board_no = #{no}

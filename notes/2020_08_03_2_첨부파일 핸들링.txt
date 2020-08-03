@@ -1,0 +1,28 @@
+첨부파일 핸들링
+	MultipartFile
+		* 첨부파일 업로드를 지원하는 객체다.
+		* <form /> 태그에 enctype="multipart/form-data" 속성이 설정되어 있고, 첨부파일 필드가 있을 때,
+		  xxxForm 객체에 첨부파일 입력 필드와 동일한 이름의 필드가 있으면, 첨부파일의 존재 여부와 무관하게 MultipartFile의 값은 NULL이 아니다. 
+		  첨부파일이 없을 경우에는 해당 MultipartFile 객체에서 isEmpty() 메소드를 실행했을 때 true가 반환된다.
+		* 주요 API
+			boolean isEmpty()
+				해당 필드명으로 업로드된 첨부파일이 없으면 true를 반환한다.
+			String getOriginalFileName()
+				첨부파일명을 반환한다.
+			byte[] getBytes()
+				첨부파일의 내용을 byte[] 배열로 반환한다.
+			InputStream getInputStream()
+				서버의 임시 디렉토리에 저장된 첨부파일을 읽어오는 스트림을 반환한다.
+			String getContentType()
+				첨부파일의 컨텐츠타입을 MIME 형식으로 반환한다.
+			long getSize()
+				첨부파일의 크기를 반환한다.
+
+첨부파일 처리하기 절차
+	1. xxxForm 객체에서 첨부파일 정보를 가지고 있는 MultipartFile객체를 조회한다.
+	2. isEmpty() 메소드를 사용해 업로드된 첨부파일이 존재하는지 확인한다.
+	3. 첨부파일이 존재할 경우, 업로드된 파일의 이름을 조회한다.
+	4. 파일이름 중복으로 덮어쓰기가 발생하지 않도록 파일 이름에 유닉스타임을 추가한다.
+	5. 업로드된 첨부파일을 저장하기 위한 파일 객체를 생성한다.
+	6. FileCopyUtils.copy(소스, 대상) 메소드를 사용해 서버의 임시 디렉토리에 저장된 첨부파일을 File 객체가 지정한 위치로 복사한다.
+	7. 파일명을 테이블에 저장하기 위해 VO 객체에 파일명을 추가한다.

@@ -50,7 +50,7 @@
 											첨부 파일이 없습니다.
 										</c:when>
 										<c:otherwise>
-											<strong>${board.filename }</strong>
+											<strong>${board.originalFilename }</strong>
 											<a href="download.do?no=${board.no }" class="btn btn-sm btn-outline-secondary">Download</a>
 										</c:otherwise>
 									</c:choose>
