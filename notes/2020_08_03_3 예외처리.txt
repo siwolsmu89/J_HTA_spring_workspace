@@ -1,0 +1,10 @@
+예외처리하기
+	@ExceptionHandler(예외클래스명) 어노테이션을 통해 예외를 처리할 수 있다.
+		* 미리 정해진 에러페이지를 return으로 제공한다.
+		* 발생한 예외가 예외클래스명에 정확하게 해당하지 않는다면 자신과 더 가까운 쪽의 예외 핸들러 메소드를 사용한다.
+		* 예외핸들러 메소드가 실행되면 console에 에러메시지가 출력되지 않으므로, e.printStackTrace() 메소드를 실행시킨다.
+	isErrorPage="true"
+		* JSP 페이지 상단 페이지 설정 항목에 추가할 수 있다.
+		* 기본값은 false이다.
+		* 이 속성이 true로 설정되면 'exception' 객체가 기본 객체로 제공된다.
+		* ${pageContext.exception.message } 형식으로 예외 메시지를 받아 쓸 수 있다.

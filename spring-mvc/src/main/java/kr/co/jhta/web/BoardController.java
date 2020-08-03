@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,6 +99,20 @@ public class BoardController {
 	
 	@Value("${directory.save.freeboard}")
 	private String saveDirectory;
+	
+	// 에러 처리를 좀 더 따로따로 하고 싶으면 개별 예외를 만들어서 처리하면 됨
+	@ExceptionHandler(RuntimeException.class)
+	public String runtimeExceptionHandler(RuntimeException e) {
+		e.printStackTrace();
+		return "error/server-error";
+	}
+
+	// 보험용 예외처리 메소드
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "error/server-unknown-error";
+	}
 	
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String boardList(Model model) {
@@ -189,5 +204,13 @@ public class BoardController {
 		model.addAttribute("board", boardService.getBoardDetail(boardNo));
 		
 		return "board/detail";
+	}
+	
+	@RequestMapping("/delete.do")
+	public String deleteBoard(@RequestParam("no") long boardNo, String password) {
+		
+		boardService.deleteBoard(boardNo, password);
+		
+		return "redirect:list.do";
 	}
 }

@@ -65,11 +65,11 @@
 					<div class="card-footer text-right">
 						<div class="d-flex justify-content-between">
 							<div>
-								<a href="list.do" class="btn btn-primary">목록</a>
+								<a href="modify.do?no=${board.no }" class="btn btn-warning">수정</a>
+								<button	data-toggle="modal" data-target="#modal-password-form" class="btn btn-danger">삭제</button>
 							</div>
 							<div>
-								<a href="modify.do?no=${board.no }" class="btn btn-warning">수정</a>
-								<a href="delete.do?no=${board.no }" class="btn btn-danger">삭제</a>
+								<a href="list.do" class="btn btn-primary">목록</a>
 							</div>
 						</div>
 					</div>
@@ -77,5 +77,37 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- The Modal -->
+	<div class="modal" id="modal-password-form">
+		<div class="modal-dialog modal-sm">
+			<form id="password-form" method="POST" action="delete.do" >
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">비밀번호 확인</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>비밀번호</label>
+							<input type="password" class="form-control" name="password">
+							<input type="hidden" name="no" value="${board.no }" />
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+						<button type="submit" class="btn btn-primary">확인</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+<script type="text/javascript" src="/resources/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(function() {
+		
+});
+</script>
 </body>
 </html>
