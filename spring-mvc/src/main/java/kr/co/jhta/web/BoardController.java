@@ -14,14 +14,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.jhta.form.BoardForm;
 import kr.co.jhta.service.BoardService;
+import kr.co.jhta.view.FileDownloadView;
 import kr.co.jhta.vo.Board;
 
 /*
@@ -96,6 +100,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private FileDownloadView fileDownloadView;
 	
 	@Value("${directory.save.freeboard}")
 	private String saveDirectory;
@@ -206,11 +213,25 @@ public class BoardController {
 		return "board/detail";
 	}
 	
-	@RequestMapping("/delete.do")
+	@PostMapping("/delete.do")
 	public String deleteBoard(@RequestParam("no") long boardNo, String password) {
-		
 		boardService.deleteBoard(boardNo, password);
 		
 		return "redirect:list.do";
 	}
+	
+	@GetMapping("/download.do")
+	public ModelAndView downloadFile(@RequestParam("no") long boardNo) {
+		ModelAndView mav = new ModelAndView();
+		
+		Board board = boardService.getBoardDetail(boardNo);
+		if (board != null && board.getFilename() != null) {
+			mav.addObject("directory", saveDirectory);
+			mav.addObject("filename", board.getFilename());
+			mav.setView(fileDownloadView);
+		}
+		
+		return mav;
+	}
+	
 }

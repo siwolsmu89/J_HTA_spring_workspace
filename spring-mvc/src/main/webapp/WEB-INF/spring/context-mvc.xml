@@ -15,7 +15,7 @@
 	<!--
 		@Controller 어노테이션이 부착된 컨트롤러 클래스들을 kr.co.jhta.web 패키지에서 검색해 Spring Bean으로 등록한다. 
 	-->
-	<context:component-scan base-package="kr.co.jhta.web" />
+	<context:component-scan base-package="kr.co.jhta.web,kr.co.jhta.view" />
 	
 	<!-- 
 		@Controller, @RestController, @ControllerAdvice, @RequestMapping, @RequestParam, @ModelAttribute, @PathVariable, @Valid 등,

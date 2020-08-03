@@ -96,7 +96,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-						<button type="submit" class="btn btn-primary">확인</button>
+						<button id="btn-confirm" type="submit" class="btn btn-primary" disabled>확인</button>
 					</div>
 				</div>
 			</form>
@@ -106,7 +106,14 @@
 <script type="text/javascript" src="/resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function() {
-		
+	$(":input[name=password]").keyup(function() {
+		if ($(this).val() != "") {
+			$("#btn-confirm").prop("disabled", false);
+		} else {
+			$("#btn-confirm").prop("disabled", true);
+			
+		}
+	});
 });
 </script>
 </body>
