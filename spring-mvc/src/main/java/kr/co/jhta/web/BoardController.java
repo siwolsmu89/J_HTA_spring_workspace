@@ -65,17 +65,29 @@ import kr.co.jhta.vo.Board;
  * 					value
  * 						요청 파라미터의 이름을 지정한다.
  * 						value="userId"
- * 						아래의 메소드 4개는 모두 똑같은 방식으로 동작한다.
  * 						handlerMethod(@RequestParam(value="userId") String id)
  * 						handlerMethod(@RequestParam(name="userId") String id)
  * 						handlerMethod(@RequestParam("userId") String id)
- * 						handlerMethod(String userId) : 핸들러 메소드의 변수명과 요청파라미터의 변수명이 같으면 @RequestParam을 생략해도 자동으로 적용된다.
+ * 							* 위 세 가지 모두 요청파라미터명이 userId인 요청파라미터의 값을 찾아서 매개변수 id에 전달한다.
+ * 						handlerMethod(String userId)
+ * 							* 핸들러 메소드의 변수명과 요청파라미터의 변수명이 같으면 @RequestParam을 생략해도 자동으로 적용된다.
+ * 							* 즉, 위의 선언은 handlerMethod(@RequestParam("userId") String userId)와 동일하다.
+ * 						handlerMethod(@RequestParam("skill" String[] skills)
+ * 							* <form /> 태그 안에 <input name="skill">이 여러 개인 경우, 체크된 혹은 입력된 값들을 배열로 받을 수 있다.
+ * 						*** 주의 사항) 반드시 지정한 이름의 요청파라미터값이 존재해야 한다.
  * 					name
  * 						요청 파라미터의 이름을 지정한다.
+ * 						value의 사용법과 동일하다.
  * 					required
  * 						필수 요청 파라미터 여부를 지정한다.
+ * 						기본값은 true로 지정되어 있다.
+ * 						required=false로 지정하지 않은 이상 무조건 요청파라미터가 존재해야 한다.
+ * 						required=false로 지정하는 경우, 거의 대부분 defaultValue와 함께 사용된다.
  * 					defaultValue
  * 						요청 파라미터 값이 비어있을 때 대신 사용될 기본 값을 지정한다.
+ * 						required=false로 지정된 경우, defaultValue를 사용해서 기본값을 지정할 수 있다.
+ * 						@RequestParam(name="pageNo", required=false, defaultValue="1") int pageNo
+ * 						@RequestParam(name="type", required=false, defaultValue="국내도서") String bookType
  */
 @Controller
 @RequestMapping("/board")
