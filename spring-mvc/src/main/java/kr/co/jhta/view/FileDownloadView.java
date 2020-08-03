@@ -21,10 +21,12 @@ public class FileDownloadView extends AbstractView {
 
 		// Model 객체에서 디렉토리 경로 및 파일명을 조회한다.
 		String directory = (String) model.get("directory");
-		String filename = (String) model.get("filename");
+		String filename = (String) model.get("filename");					// 1234123412341filename.xx
+		String originalFilename = (String) model.get("originalFilename");	// filename.xx
 		
 		// 파일 객체를 생성한다.
 		File file = new File(directory, filename);
+		
 		// 응답컨텐츠의 타입을 application/octet-stream으로 설정한다.
 		// application/octet-stream은 알려지지 않은 파일의 타입을 지정할 때 사용된다.
 		// response.setHeader(name, value)는 응답메시지의 헤더정보를 설정할 때 사용한다.
@@ -34,7 +36,7 @@ public class FileDownloadView extends AbstractView {
 		// URLEncoder.encode(filename, 'UTF-8')은 파일 이름에 한글이 포함되어 있을 경우, utf-8 방식으로 변환해서 파일명을 응답헤더에 포함시킨다.
 		setContentType("application/octet-stream");
 		response.setHeader("Content-Length", String.valueOf(file.length()));
-		response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "utf-8"));
+		response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(originalFilename, "utf-8"));
 		
 		// FileCopyUtils.copy(InputStream in, OutputStream out)
 		// in으로 읽어서 out으로 보낸다.

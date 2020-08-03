@@ -228,6 +228,7 @@ public class BoardController {
 		if (board != null && board.getFilename() != null) {
 			mav.addObject("directory", saveDirectory);
 			mav.addObject("filename", board.getFilename());
+			mav.addObject("originalFilename", board.getOriginalFilename());
 			mav.setView(fileDownloadView);
 		}
 		
