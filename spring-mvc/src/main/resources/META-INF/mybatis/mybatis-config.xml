@@ -7,9 +7,13 @@
 	
 	<typeAliases>
 		<typeAlias type="kr.co.jhta.vo.Board" alias="Board"/>
+		<typeAlias type="kr.co.jhta.vo.Category" alias="Category"/>
+		<typeAlias type="kr.co.jhta.vo.Product" alias="Product"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="META-INF/mybatis/mappers/freeboards.xml" />
+		<mapper resource="META-INF/mybatis/mappers/categories.xml" />
+		<mapper resource="META-INF/mybatis/mappers/products.xml" />
 	</mappers>
 </configuration>
