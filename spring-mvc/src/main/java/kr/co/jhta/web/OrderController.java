@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kr.co.jhta.form.OrderForm;
 import kr.co.jhta.service.OrderService;
@@ -15,6 +17,7 @@ import kr.co.jhta.vo.Product;
 
 @Controller
 @RequestMapping("/order")
+@SessionAttributes("orderForm")
 public class OrderController {
 
 	@Autowired
@@ -23,36 +26,50 @@ public class OrderController {
 	@Autowired
 	private ProductService productService;
 	
-	
 	@GetMapping("/step1.do")
 	public String step1(@RequestParam("no") long productNo, Model model) {
+		
+		// 구매 버튼을 클릭한 상품 정보를 조회한다.
 		Product product = productService.getProductDetail(productNo);
 		
+		// 구매상품정보, 구매자정보, 결제정보, 배송지정보를 저장할 OrderForm 객체를 만든다.
 		OrderForm orderForm = new OrderForm();
+		
+		// OrderForm 객체에 조회된 상품정보를 저장한다.
 		orderForm.setProductNo(product.getNo());
 		orderForm.setProductName(product.getName());
 		orderForm.setProductPrice(product.getPrice());
 		orderForm.setProductDiscountPrice(product.getDiscountPrice());
-
+		
+		// OrderForm 객체를 Model에 저장한다.
+		// @SessionAttributes("orderForm") 어노테이션 설정이 있기 때문에 OrderForm은 세션에 저장된다.
+		// OrderForm 객체는 브라우저를 종료하거나 로그아웃하기 전까지는 계속 유지된다.
 		model.addAttribute("orderForm", orderForm);
 		
 		System.out.println("step1 단계 화면 표시 전 OrderForm: " + orderForm);
-
+		
+		// 구매자 정보 입력화면으로 이동한다.
 		return "order/step1";
 	}
 	
-	@PostMapping("/step2.do")
+	@PostMapping("/step1.do")
+	public String step1Submit(@ModelAttribute("orderForm") OrderForm orderForm) {
+		System.out.println("step1단계 완료 후 OrderForm: " + orderForm);
+		
+		return "redirect:step2.do";
+	}
+	
+	@GetMapping("/step2.do")
 	public String step2() {
+		
+		return "order/step2";
+	}
+	
+	@PostMapping("/step2.do")
+	public String step2Submit(@ModelAttribute("orderForm") OrderForm orderForm) {
+		System.out.println("step2 단계 완료 후 OrderForm" + orderForm);
+		
 		return "redirect:step3.do";
 	}
 	
-	@PostMapping("/step3.do")
-	public String step3() {
-		return "redirect:step4.do";
-	}
-	
-	@PostMapping("/step4.do")
-	public String step4() {
-		return "redirect:completed.do";
-	}
 }

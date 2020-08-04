@@ -129,10 +129,11 @@ public class OrderForm {
 
 	@Override
 	public String toString() {
-		return "OrderForm [username=" + username + ", usertel=" + usertel + ", productNo=" + productNo + ", amount="
-				+ amount + ", price=" + price + ", payType=" + payType + ", payAccount=" + payAccount
-				+ ", receiverUsername=" + receiverUsername + ", receiverTel=" + receiverTel + ", receiverAddress="
-				+ receiverAddress + "]";
+		return "OrderForm [username=" + username + ", usertel=" + usertel + ", productNo=" + productNo
+				+ ", productName=" + productName + ", productPrice=" + productPrice + ", productDiscountPrice="
+				+ productDiscountPrice + ", amount=" + amount + ", price=" + price + ", payType=" + payType
+				+ ", payAccount=" + payAccount + ", receiverUsername=" + receiverUsername + ", receiverTel="
+				+ receiverTel + ", receiverAddress=" + receiverAddress + "]";
 	}
 	
 }
