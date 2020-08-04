@@ -21,19 +21,20 @@
 		</div>
 	</div>
 
-
 	<div class="body">
 		<div class="row" style="height: 100%;">
-			<div class="col-3 d-flex justify-content-center bg-light">
+			<div class="col-3 d-flex justify-content-end bg-light">
 				<%@ include file="sidebar.jsp" %>
 			</div>
 			<div class="col-9">
-			
+				<!-- 
+					(제안)
+					여기에 각자 작성한 페이지.jsp를 넣어서 사용하면 각 jsp파일에서는 공통 부분이 제외돼서 코드 보기가 편할 것 같아요 
+				
+				-->
 			</div>
 		</div>
 	</div>
 </div>
-
-
 </body>
 </html>

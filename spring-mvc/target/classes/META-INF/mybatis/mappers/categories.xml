@@ -3,7 +3,7 @@
 <mapper namespace="kr.co.jhta.dao.CategoryDao">
 	<select id="getCategoryById" parameterType="string" resultType="Category">
 		SELECT
-			category_id 	AS id
+			category_id 	AS id,
 			category_name 	AS name
 		FROM
 			spring_categories
@@ -13,7 +13,7 @@
 	
 	<select id="getAllCategories" resultType="Category">
 		SELECT
-			category_id 	AS id
+			category_id 	AS id,
 			category_name 	AS name
 		FROM
 			spring_categories
