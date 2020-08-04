@@ -51,7 +51,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		model.addAttribute("contentLocation", "../community/main.jsp");
 		
-		return "container";
+		return "home.jsp";
 	}
 	
 }

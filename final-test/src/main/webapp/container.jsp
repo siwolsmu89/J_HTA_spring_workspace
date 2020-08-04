@@ -31,6 +31,8 @@
 				 -->
 			</div>
 			<div class="col-10" id="content-div">
+			
+				<%@ include file="test.jsp" %>
 				<!-- 
 					Controller에서 contentLocation 속성으로 각자 작성한 페이지.jsp를 넣어두면 여기에서 호출해 표시 
 					<@ include file="${contentLocation }" %>
