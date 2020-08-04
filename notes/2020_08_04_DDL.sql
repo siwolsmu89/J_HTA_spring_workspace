@@ -30,6 +30,8 @@ CREATE TABLE spring_orders (
     order_created_date DATE DEFAULT SYSDATE
 );
 
+CREATE SEQUENCE spring_order_seq;
+
 CREATE TABLE spring_order_items (
     item_no NUMBER(10) PRIMARY KEY,
     order_no NUMBER(10) REFERENCES spring_orders (order_no),
