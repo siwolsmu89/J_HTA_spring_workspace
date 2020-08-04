@@ -39,4 +39,9 @@ public class ProductServiceImpl implements ProductService {
 		
 		productDao.insertProduct(product);
 	}
+	
+	@Override
+	public Product getProductDetail(long productNo) {
+		return productDao.getProductByNo(productNo);
+	}
 }
