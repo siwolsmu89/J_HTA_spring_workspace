@@ -10,6 +10,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class UserForm {
 	
@@ -32,13 +33,14 @@ public class UserForm {
 	private String email;
 	
 	@NotBlank(message="전화번호는 필수입력값입니다.")
-	@Pattern(regexp="^\\d{3}-\\d{3,4}-\\d{4}$", message="유효한 전화번호 형식이 아닙니다.")
+	@Pattern(regexp="^\\d{2,3}-\\d{3,4}-\\d{4}$", message="유효한 전화번호 형식이 아닙니다.")
 	private String tel;
 	
 	@Min(value=19, message="19세 이상만 가입할 수 있습니다.")
 	private int age;
 	
 	@Past(message="생일은 오늘 이전의 날짜만 가능합니다.")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birth;
 
 	public UserForm() {}
@@ -97,6 +99,12 @@ public class UserForm {
 
 	public void setBirth(Date birth) {
 		this.birth = birth;
+	}
+
+	@Override
+	public String toString() {
+		return "UserForm [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", tel=" + tel
+				+ ", age=" + age + ", birth=" + birth + "]";
 	}
 	
 }
