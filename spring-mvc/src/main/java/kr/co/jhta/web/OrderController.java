@@ -91,7 +91,7 @@ public class OrderController {
 	}
 	
 	@PostMapping("/step4.do")
-	public String step4Submit(@ModelAttribute("orderForm") OrderForm orderForm) {
+	public String step4Submit(@ModelAttribute("orderForm") OrderForm orderForm, SessionStatus sessionStatus) {
 		System.out.println("step4단계 완료 후 OrderForm : " + orderForm);
 
 		Order order = new Order();
@@ -114,12 +114,16 @@ public class OrderController {
 		
 		orderService.order(order, item, payment, delivery);
 		
+		// 1. Model 객체에 @ModelAttribute("이름")로 저장된 객체들 중, @SessionAttribute({"이름", "이름", ...})와 이름이 일치하는 것들은 세션에 저장된다.
+		// 2. sessionStatus.setComplete() 메소드는 그런 방법으로 세션에 저장된 객체들을 삭제한다.
+		// 	  단, 이 메소드는 세션에 포함된 모든 객체를 삭제하는 것이 아니라 자신이 속한 컨트롤러에서 @SessionAttribute로 저장한 객체만 삭제한다. 
+		sessionStatus.setComplete();
+		
 		return "redirect:completed.do";
 	}
 	
 	@GetMapping("/completed.do")
-	public String completed(SessionStatus sessionStatus) {
-		sessionStatus.setComplete();
+	public String completed() {
 		return "order/completed";
 	}
 	

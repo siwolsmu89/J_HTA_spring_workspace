@@ -2,6 +2,7 @@ package kr.co.jhta.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.dao.OrderDao;
 import kr.co.jhta.dao.ProductDao;
@@ -12,6 +13,7 @@ import kr.co.jhta.vo.Payment;
 import kr.co.jhta.vo.Product;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired
