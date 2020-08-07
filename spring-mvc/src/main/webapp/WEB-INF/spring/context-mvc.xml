@@ -61,11 +61,13 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/json/**"/>
+			<mvc:exclude-mapping path="/rest/**"/>
 			<ref bean="authenticationInterceptor"/>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<mvc:exclude-mapping path="/json/**"/>
+			<mvc:exclude-mapping path="/rest/**"/>
 			<ref bean="authorizationInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
