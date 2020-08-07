@@ -132,5 +132,7 @@ INSERT INTO spring_user_roles
     (user_id, has_role)
 VALUES
     ('operator', 'user');
+    
+DELETE spring_url_roles WHERE reg_role IS NULL;
 
-commit;
+COMMIT;

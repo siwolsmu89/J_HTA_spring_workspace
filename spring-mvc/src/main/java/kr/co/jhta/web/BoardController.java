@@ -162,10 +162,10 @@ public class BoardController {
 	//   폼 커맨드객체에 자동으로 저장한 후, 요청핸들러 메소드 실행시 전달해준다.
 	// * <form />태그의 입력필드갯수가 많을 때 반복적인 코드를 효과적으로 줄일 수 있다.
 	public String addBoard(BoardForm boardForm, User user) throws Exception {
-		
-		if (user == null) {
-			return "redirect:/signin.do?error=deny";
-		}
+
+		// user가 null인지 확인할 필요가 없다.
+		// 인터셉터에서 이미 확인이 끝난 상태 (add.do 요청이 오면 로그인 유저를 확인해서 없을 시 로그인폼으로 redirect 시킨다)
+		// 그러므로 여기서는 항상 user에 객체의 주소가 담겨 있으므로, 그냥 User user만 파라미터에 적어주고 Resolver로부터 값을 입력받으면 된다.
 		
 		Board board = new Board();
 		board.setWriter(user.getId());

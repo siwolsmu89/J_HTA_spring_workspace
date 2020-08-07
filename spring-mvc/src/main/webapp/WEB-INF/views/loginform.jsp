@@ -26,7 +26,12 @@
 						</c:when>
 						<c:when test="${param.error eq 'deny' }">
 							<div class="alert alert-danger">
-								<strong>서비스 거부</strong> 해당 서비스는 로그인 후 사용가능합니다.
+								<strong>인증 실패</strong> 해당 서비스는 로그인 후 사용가능합니다.
+							</div>
+						</c:when>
+						<c:when test="${param.error eq 'role' }">
+							<div class="alert alert-danger">
+								<strong>접근 거부</strong> 해당 서비스에 대한 접근 권한이 필요합니다.
 							</div>
 						</c:when>
 					</c:choose>
