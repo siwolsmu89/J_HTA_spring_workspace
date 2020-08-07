@@ -1,6 +1,7 @@
 package kr.co.jhta.vo;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -8,10 +9,11 @@ public class User {
 	private String name;
 	private String password;
 	private String email;
-	private Date createdDate;
 	private String tel;
 	private int age;
 	private Date birth;
+	private Date createdDate;
+	private List<String> roles;
 	
 	public User() {}
 
@@ -47,14 +49,6 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
 	public String getTel() {
 		return tel;
 	}
@@ -77,6 +71,22 @@ public class User {
 
 	public void setBirth(Date birth) {
 		this.birth = birth;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 	
 }

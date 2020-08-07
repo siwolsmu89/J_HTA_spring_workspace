@@ -4,7 +4,7 @@ import kr.co.jhta.vo.User;
 
 public interface UserService {
 
-	void addNewUser(User user);
 	User getUserDetail(String userId);
-	
+	void addNewUser(User user);
+	User login(String userId, String userPwd);
 }

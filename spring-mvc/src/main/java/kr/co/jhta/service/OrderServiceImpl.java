@@ -21,9 +21,10 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Override
 	public void order(Order order, Item item, Payment payment, Delivery delivery) {
+		
 		// 1. 주문정보 저장하기
 		System.out.println("주문정보 저장 전: " + order);
 		orderDao.insertOrder(order);
@@ -33,11 +34,11 @@ public class OrderServiceImpl implements OrderService {
 		item.setOrderNo(order.getNo());
 		orderDao.insertOrderItem(item);
 		
-		// 3. 결제정보 저장하기
+		// 3. 결재정보 저장하기
 		payment.setOrderNo(order.getNo());
 		orderDao.insertOrderPayment(payment);
 		
-		// 4. 배송지 저장하기
+		// 4. 배송정보 저장하기
 		delivery.setOrderNo(order.getNo());
 		orderDao.insertOrderDelivery(delivery);
 		
@@ -45,5 +46,18 @@ public class OrderServiceImpl implements OrderService {
 		Product savedProduct = productDao.getProductByNo(item.getProductNo());
 		savedProduct.setStock(savedProduct.getStock() - item.getAmount());
 		productDao.updateProduct(savedProduct);
+		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

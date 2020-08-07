@@ -14,31 +14,25 @@ import kr.co.jhta.vo.Product;
 @Service
 @Transactional
 public class ProductServiceImpl implements ProductService {
-	
+
 	@Autowired
 	private CategoryDao categoryDao;
 	
 	@Autowired
 	private ProductDao productDao;
-	
+
 	@Override
 	public List<Category> getAllCategories() {
 		return categoryDao.getAllCategories();
 	}
-	
+
 	@Override
 	public List<Product> getAllProducts() {
 		return productDao.getAllProducts();
 	}
-	
+
 	@Override
 	public void addNewProduct(Product product) {
-		Product savedProduct = productDao.getProductByNo(product.getNo());
-		
-		if (savedProduct != null) {
-			throw new RuntimeException("Duplicated Product Number");
-		}
-		
 		productDao.insertProduct(product);
 	}
 	

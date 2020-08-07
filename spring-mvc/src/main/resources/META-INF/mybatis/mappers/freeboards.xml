@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="kr.co.jhta.dao.BoardDao">
+	
 	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO spring_free_boards
-			(board_no, board_title, board_writer, board_password, board_content, board_filename)
-		VALUES
-			(spring_board_seq.NEXTVAL, #{title}, #{writer}, #{password}, #{content}, #{filename})
+		insert into spring_free_boards
+		(board_no, board_title, board_writer, board_password, board_content, board_filename)
+		values
+		(spring_board_seq.nextval, #{title}, #{writer}, #{password}, #{content}, #{filename})
 	</insert>
 	
+	<select id="selectBoards" resultType="Board">
+		select
+			board_no				as no,
+			board_title				as title,
+			board_writer			as writer,
+			board_likes				as likes,
+			board_created_date		as createdDate
+		from
+			spring_free_boards
+		where
+			board_deleted = 'N'
+		order by
+			board_no desc
+	</select>
+	
+	<select id="selectBoard" parameterType="long" resultType="Board">
+		select
+			board_no				as no,
+			board_title				as title,
+			board_writer			as writer,
+			board_password			as password,
+			board_content			as content,
+			board_filename			as filename,
+			board_likes				as likes,
+			board_deleted			as deleted,
+			board_created_date		as createdDate,
+			board_updated_date		as updatedDate,
+			board_deleted_date		as deletedDate
+		from
+			spring_free_boards
+		where
+			board_no = #{value}
+	</select>
+	
 	<update id="updateBoard" parameterType="Board">
-		UPDATE spring_free_boards
-		SET
+		update
+			spring_free_boards
+		set
 			board_title = #{title},
 			board_content = #{content},
 			board_filename = #{filename},
 			board_likes = #{likes},
 			board_deleted = #{deleted},
-			board_updated_date = SYSDATE,
+			board_updated_date = #{updatedDate},
 			board_deleted_date = #{deletedDate}
-		WHERE
+		where
 			board_no = #{no}
 	</update>
-	
-	<select id="selectBoards" resultType="Board">
-		SELECT 
-			board_no 			AS no, 
-			board_title 		AS title, 
-			board_writer 		AS writer, 
-			board_likes 		AS likes, 
-			board_created_date 	AS createdDate 
-		FROM 
-			spring_free_boards
-		WHERE
-			board_deleted = 'N'
-		ORDER BY
-			board_no DESC
-	</select>
-	
-	<select id="selectBoard" parameterType="long" resultType="Board">
-		SELECT
-			board_no 			AS no, 
-			board_title 		AS title, 
-			board_writer 		AS writer, 
-			board_password 		AS password, 
-			board_content 		AS content, 
-			board_filename 		AS filename, 
-			board_likes 		AS likes, 
-			board_deleted		AS deleted,
-			board_created_date 	AS createdDate, 
-			board_updated_date	AS updatedDate 
-		FROM
-			spring_free_boards
-		WHERE
-			board_no = #{value}
-		AND
-			board_deleted = 'N'
-	</select>
-
-
 </mapper>
