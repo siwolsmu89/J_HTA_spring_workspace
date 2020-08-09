@@ -1,12 +1,11 @@
 package kr.co.jhta.vo;
 
 public class Category {
-	
+
 	private String id;
 	private String name;
 	
 	public Category() {}
-
 	public Category(String id) {
 		this.id = id;
 	}

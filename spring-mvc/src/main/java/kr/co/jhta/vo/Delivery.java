@@ -2,7 +2,7 @@ package kr.co.jhta.vo;
 
 public class Delivery {
 
-	private long no;
+	private int no;
 	private String username;
 	private String tel;
 	private String address;
@@ -11,11 +11,11 @@ public class Delivery {
 	
 	public Delivery() {}
 
-	public long getNo() {
+	public int getNo() {
 		return no;
 	}
 
-	public void setNo(long no) {
+	public void setNo(int no) {
 		this.no = no;
 	}
 
@@ -57,6 +57,12 @@ public class Delivery {
 
 	public void setOrderNo(long orderNo) {
 		this.orderNo = orderNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Delivery [no=" + no + ", username=" + username + ", tel=" + tel + ", address=" + address + ", status="
+				+ status + ", orderNo=" + orderNo + "]";
 	}
 	
 }

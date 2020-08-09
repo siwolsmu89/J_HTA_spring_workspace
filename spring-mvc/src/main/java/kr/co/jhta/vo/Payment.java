@@ -1,7 +1,7 @@
 package kr.co.jhta.vo;
 
 public class Payment {
-	
+
 	private long no;
 	private String type;
 	private String account;
@@ -39,6 +39,11 @@ public class Payment {
 
 	public void setOrderNo(long orderNo) {
 		this.orderNo = orderNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Payment [no=" + no + ", type=" + type + ", account=" + account + ", orderNo=" + orderNo + "]";
 	}
 	
 }

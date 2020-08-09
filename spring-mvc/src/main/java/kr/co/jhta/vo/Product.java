@@ -3,7 +3,7 @@ package kr.co.jhta.vo;
 import java.util.Date;
 
 public class Product {
-	
+
 	private long no;
 	private Category category;
 	private String name;

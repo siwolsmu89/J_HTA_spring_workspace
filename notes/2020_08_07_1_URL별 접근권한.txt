@@ -1,0 +1,24 @@
+URL			접근권한
+/board/add.do		USER,ADMIN
+/board/list.do
+/board/likes.do
+/board/detail.do
+/board/delete.do	USER,ADMIN
+/board/download.do
+
+
+/home.do
+
+/order/step1.do		USER
+/order/step2.do		USER
+/order/step3.do		USER
+/order/step4.do		USER
+/order/cancel.do	USER
+/order/completed.do	USER
+
+/product/add.do		ADMIN
+/product/list.do
+
+/signin.do
+/signout.do		USER, ADMIN
+/signup.do

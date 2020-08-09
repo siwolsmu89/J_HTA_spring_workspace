@@ -4,15 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.jhta.dao.RoleDao;
 import kr.co.jhta.dao.UserDao;
 import kr.co.jhta.vo.User;
 
-@Service
 @Transactional
+@Service
 public class UserServiceImpl implements UserService {
+
+	@Autowired
+	UserDao userDao;
 	
 	@Autowired
-	private UserDao userDao;
+	RoleDao roleDao;
 	
 	@Override
 	public void addNewUser(User user) {
@@ -24,4 +28,23 @@ public class UserServiceImpl implements UserService {
 		return userDao.getUserById(userId);
 	}
 	
+	@Override
+	public User login(String userId, String userPwd) {
+		User user = userDao.getUserById(userId);
+		if (user == null) {
+			return null;
+		}
+		if (!user.getPassword().equals(userPwd)) {
+			return null;
+		}
+		
+		user.setRoles(roleDao.getRolesUserById(userId));
+		return user;
+	}
 }
+
+
+
+
+
+

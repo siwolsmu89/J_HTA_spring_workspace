@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="kr.co.jhta.dao.ProductDao">
+	
 	<insert id="insertProduct" parameterType="Product">
-		INSERT INTO spring_products
-			(product_no, category_id, product_name, product_price, product_discount_price)
-		VALUES
-			(spring_product_seq.NEXTVAL, #{category.id}, #{name}, #{price}, #{discountPrice})
+		insert into spring_products
+		(product_no, category_id, product_name, product_price, product_discount_price)
+		values
+		(spring_product_seq.nextval, #{category.id}, #{name}, #{price}, #{discountPrice})
 	</insert>
 	
 	<select id="getAllProducts" resultType="Product">
-		SELECT
-			product_no 				AS no, 
-			category_id 			AS "category.id", 
-			product_name 			AS name, 
-			product_price 			AS price, 
-			product_discount_price 	AS discountPrice, 
-			product_stock 			AS stock, 
-			product_created_date 	AS createdDate
-		FROM
+		select 
+			product_no 					as no,
+			category_id					as "category.id",
+			product_name				as name,
+			product_price				as price,
+			product_discount_price		as discountPrice,
+			product_stock				as stock,
+			product_created_date		as createdDate
+		from
 			spring_products
-		ORDER BY
-			product_no ASC
+		order by
+			product_no desc
 	</select>
 	
-	<select id="getAllProductsByCategoryId" parameterType="string" resultType="Product">
-		SELECT
-			product_no 				AS no, 
-			category_id 			AS "category.id", 
-			product_name 			AS name, 
-			product_price 			AS price, 
-			product_discount_price 	AS discountPrice, 
-			product_stock 			AS stock, 
-			product_created_date 	AS createdDate
-		FROM
+	<select id="getProductsByCategoryId" parameterType="string" resultType="Product">
+		select 
+			product_no 					as no,
+			category_id					as "category.id",
+			product_name				as name,
+			product_price				as price,
+			product_discount_price		as discountPrice,
+			product_stock				as stock,
+			product_created_date		as createdDate
+		from
 			spring_products
-		WHERE
+		where
 			category_id = #{value}
-		ORDER BY
-			product_no ASC	
+		order by
+			product_no desc
 	</select>
 	
 	<select id="getProductByNo" parameterType="long" resultType="Product">
-		SELECT
-			product_no 				AS no, 
-			category_id 			AS "category.id", 
-			product_name 			AS name, 
-			product_price 			AS price, 
-			product_discount_price 	AS discountPrice, 
-			product_stock 			AS stock, 
-			product_created_date 	AS createdDate
-		FROM
+		select 
+			product_no 					as no,
+			category_id					as "category.id",
+			product_name				as name,
+			product_price				as price,
+			product_discount_price		as discountPrice,
+			product_stock				as stock,
+			product_created_date		as createdDate
+		from
 			spring_products
-		WHERE
-			product_no = #{value}	
+		where
+			product_no = #{value}
 	</select>
 	
 	<update id="updateProduct" parameterType="Product">
-		UPDATE
+		update 
 			spring_products
-		SET
+		set
+			product_name = #{name},
 			product_price = #{price},
 			product_discount_price = #{discountPrice},
 			product_stock = #{stock}
-		WHERE
+		where
 			product_no = #{no}
 	</update>
 </mapper>
