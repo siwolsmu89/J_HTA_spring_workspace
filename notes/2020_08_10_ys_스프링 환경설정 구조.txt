@@ -1,0 +1,93 @@
+스프링 xml 구조
+	스프링 라이브러리 등록
+		pom.xml
+			스프링 모델 버전, 프로젝트 이름, 패키지 경로
+	
+			오라클 jdbc 연동 레포지토리 설정
+				<repositories>
+					<repository>
+						<id>oracle-jdbc</id>
+						<url>https://maven.xwiki.org/externals/</url>
+					</repository>
+				</repositories>
+
+			자바 버전, 라이브러리 버전 설정
+				<properties>
+					<java-version>1.8</java-version>
+					<org.springframework-version>4.3.28.RELEASE</org.springframework-version>
+					<org.aspectj-version>1.9.6</org.aspectj-version>
+					<org.slf4j-version>1.7.30</org.slf4j-version>
+				</properties>
+
+			의존성 주입 설정
+				파일 업로드 지원 의존성 부여	
+				스프링 핵심 라이브러리 의존성 부여
+					log4j 추가 설정
+				스프링 mvc 패턴 웹 애플리케이션 개발 지원 라이브러리 의존성 부여
+				데이터베이트 접근, 트랜잭션 처리 지원 라이브러리 의존성 부여
+				트랜잭션 처리 지원 라이브러리 의존성 부여
+				오라클 jdbc 드라이브 지원 라이브러리 의존성 부여
+				마이바티스 - 스프링 연동 지원 라이브러리 의존성 부여
+				커넥션 풀 지원 라이브러리 의존성 부여
+				AspectJ 지원 라이브러리 의존성 부여
+				로깅 지원 라이브러리 의존성 부여
+				log4j 지원 라이브러리 의존성 부여
+				Inject 지원 라이브러리 의존성 부여
+				서블릿 지원 라이브러리 의존성 부여
+				테스트 지원 라이브러리 의존성 부여
+				폼 입력값 유효성 검증 지원 라이브러리 의존성 부여
+				JSON 형식 데이터처리 지원 라이브러리 의존성 부여
+
+			메이븐 플러그인 설정
+				
+
+	웹 스프링, 뷰 설정
+		WEB-INF/
+			web.xml
+				contextConfigLocation 등록 (context-root.xml)
+				frontController 서블렛 등록 (context-mvc.xml)
+				문자인코딩 필터 등록
+				jsp taglib (통합 include)
+				
+			스프링 설정
+				context-mvc.xml
+					어노테이션 등록
+					뷰 페이지 스캔경로(.jsp) 등록
+					리절버 어노테이션 등록
+					정적리소스 매핑 등록
+					인터셉터 등록
+					리절버 등록 (profix경로, suffix파일)
+					멀티파트 리절버 등록
+
+				context-root.xml	
+					커넥션 풀 프로퍼티 경로 설정
+					커넥션 풀 빈 설정
+					트랜잭션 빈 등록 (DSTM)
+					트랜잭션 어노테이션 감지 등록
+					마이바티스 SqlSessionFactory 빈 설정
+					매퍼 인스턴스 스캔경로(dao경로) 등록
+					서비스 스캔경로(impl경로) 등록
+
+				mvc.properties
+					파일, 이미지 저장경로
+			
+			뷰 설정
+				.jsp파일
+
+	데이터베이스 설정
+		META-INF/config
+			properties
+				db.driverClassName=oracle.jdbc.OracleDriver
+				db.url=jdbc:oracle:thin:@localhost:1521:xe
+				db.username=hr
+				db.password=zxcv1234
+				
+		META-INF/mybatis
+			mappers/
+				각 쿼리xml 생성
+			mybatis-config.xml
+				데이터베이스 null 가능하도록 설정
+				DAO 별칭 등록
+				쿼리xml 스캔경로 설정
+				
+						
